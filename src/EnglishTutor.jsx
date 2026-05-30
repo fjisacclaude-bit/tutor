@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Mic, MessageSquare, AlertCircle, CheckCircle, BookOpen } from 'lucide-react';
+import { Send, Mic, AlertCircle, CheckCircle, BookOpen } from 'lucide-react';
 
 export default function EnglishTutor() {
   const [messages, setMessages] = useState([
@@ -32,13 +32,10 @@ export default function EnglishTutor() {
       recognitionRef.current.onstart = () => setIsListening(true);
       recognitionRef.current.onend = () => setIsListening(false);
       recognitionRef.current.onresult = (event) => {
-        let interimTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
             setInput(prev => prev + transcript);
-          } else {
-            interimTranscript += transcript;
           }
         }
       };
